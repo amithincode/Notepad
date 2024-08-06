@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:animations/animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../services/sql operation.dart';
 
+=======
+
+import '../services/sql operation.dart';
+
+
+
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -14,10 +22,18 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   bool isLoading = true;
+<<<<<<< HEAD
   List<Map<String, dynamic>> noteFromDb = [];
 
   @override
   void initState() {
+=======
+  List<Map<String, dynamic>> note_from_db = [];
+
+  @override
+  void initState() {
+    // refreshing the ui
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
     refreshData();
     super.initState();
   }
@@ -25,7 +41,11 @@ class _HomepageState extends State<Homepage> {
   void refreshData() async {
     final datas = await SQLHelper.readNotes();
     setState(() {
+<<<<<<< HEAD
       noteFromDb = datas;
+=======
+      note_from_db = datas;
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
       isLoading = false;
     });
   }
@@ -33,6 +53,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       appBar: AppBar(
         title: Text(
           "MyNotes",
@@ -87,10 +108,46 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ),
                     ),
+=======
+      backgroundColor: Colors.blueAccent.shade100,
+      appBar: AppBar(
+        title:  Text(
+          "MyNotes",
+          style: TextStyle(fontSize: 25),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.blueAccent.shade400,
+      ),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+          itemCount: note_from_db.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                title: Text("${note_from_db[index]['title']}"),
+                subtitle: Text(note_from_db[index]['note']),
+                trailing: SizedBox(
+                  width: 100,
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            showForm(note_from_db[index]['id']);
+                          },
+                          icon: const Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {
+                            deleteNote(note_from_db[index]['id']);
+                          },
+                          icon: const Icon(Icons.delete)),
+                    ],
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
                   ),
                 ),
               ),
             );
+<<<<<<< HEAD
           },
         ),
       ),
@@ -100,6 +157,18 @@ class _HomepageState extends State<Homepage> {
         child: const Icon(
           Icons.add,
           color: Colors.white,
+=======
+          }),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(20),
+        child: FloatingActionButton(
+          backgroundColor: Colors.white,
+          onPressed: () => showForm(null),
+          child: const Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
         ),
       ),
     );
@@ -110,13 +179,18 @@ class _HomepageState extends State<Homepage> {
 
   void showForm(int? id) async {
     if (id != null) {
+<<<<<<< HEAD
       final existingNote = noteFromDb.firstWhere((note) => note['id'] == id);
+=======
+      final existingNote = note_from_db.firstWhere((note) => note['id'] == id);
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
       title.text = existingNote['title'];
       note.text = existingNote['note'];
     }
 
     showModalBottomSheet(
         context: context,
+<<<<<<< HEAD
         elevation: 5,
         isScrollControlled: true,
         shape: RoundedRectangleBorder(
@@ -137,33 +211,68 @@ class _HomepageState extends State<Homepage> {
                 style: GoogleFonts.openSans(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
+=======
+        elevation: 3,
+        isScrollControlled: true,
+        builder: (context) => Container(
+          padding: EdgeInsets.only(
+              left: 10,
+              right: 10,
+              top: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 120),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
               TextField(
                 controller: title,
                 decoration: const InputDecoration(
                     hintText: "Title", border: OutlineInputBorder()),
               ),
+<<<<<<< HEAD
               const SizedBox(height: 10),
+=======
+              const SizedBox(
+                height: 10,
+              ),
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
               TextField(
                 controller: note,
                 decoration: const InputDecoration(
                     hintText: "Enter note", border: OutlineInputBorder()),
               ),
+<<<<<<< HEAD
               const SizedBox(height: 10),
+=======
+              const SizedBox(
+                height: 10,
+              ),
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
               ElevatedButton(
                 onPressed: () async {
                   if (id == null) {
                     await addNote();
+<<<<<<< HEAD
                   } else {
+=======
+                  }
+                  if (id != null) {
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
                     await updateNote(id);
                   }
                   title.text = "";
                   note.text = "";
                   Navigator.of(context).pop();
                 },
+<<<<<<< HEAD
                 child: Text(id == null ? 'Add Note' : 'Update Note'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.blueAccent.shade400,
                 ),
+=======
+                child: Text(id == null ? 'ADD NOTE' : "UPDATE"),
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
               )
             ],
           ),
@@ -187,3 +296,7 @@ class _HomepageState extends State<Homepage> {
     refreshData();
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f

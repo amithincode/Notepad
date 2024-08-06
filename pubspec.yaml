@@ -37,8 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
   sqflite: ^2.3.0
+<<<<<<< HEAD
   flutter_staggered_animations: ^1.0.0
   animations: ^2.0.0
+=======
+>>>>>>> 48beb1398a99089d5beb7a377b1b3b113c08c44f
 
 
 
